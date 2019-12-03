@@ -1,0 +1,11 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "password": "qwerty",
+        "email": "ashish@gmail.com",
+        "name" : "Ashish",
+        "todos": []
+      }
+    ]
+  }
