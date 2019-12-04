@@ -11,9 +11,10 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      todos: dataJSON
+      todos: dataJSON,
+      firstName: ""
     }
-    this.newTodo = "";
+    // this.newTodo = "";
     this.handleChange = this.handleChange.bind(this);
     this.updateText = this.updateText.bind(this);
     this.addTodo = this.addTodo.bind(this);
@@ -34,27 +35,37 @@ class App extends React.Component {
   }
 
   addTodo(newTodoData) {
-    $('#exampleModal').hide('hide');
-    $('body').removeClass('modal-open');
-    $('.modal-backdrop').remove();
-    const timeOfTodo = new Date();
-    const newData = {
-      "userId": 1,
-      "id": dataJSON.length + 1,
-      "title": newTodoData,
-      "completed": false,
-      "time": moment().format('LT')
+    if(newTodoData.length === 0){
+      $('#exampleModal').hide('hide');
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
     }
-    dataJSON.push(newData);
-    this.setState(prevState => {
-      return {
-        todos: dataJSON
+    else{
+      $('#exampleModal').hide('hide');
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+      const timeOfTodo = new Date();
+      const newData = {
+        "userId": 1,
+        "id": dataJSON.length + 1,
+        "title": newTodoData,
+        "completed": false,
+        "time": moment().format('LT')
       }
-    })
+      dataJSON.push(newData);
+      this.setState(prevState => {
+        return {
+          todos: dataJSON
+        }
+      })
+    }
+    
   }
 
   updateText(event) {
-    this.newTodo = event.target.value;
+    this.setState({
+      firstName: event.target.value
+    })
   }
 
   render() {
@@ -96,7 +107,7 @@ class App extends React.Component {
                   </div>
                   <div className="modal-footer border-0">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary" onClick={() => { this.addTodo(this.newTodo) }}>Save changes</button>
+                    <button type="button" className="btn btn-primary" onClick={() => { this.addTodo(this.state.firstName) }}>Save changes</button>
                   </div>
                 </div>
               </div>
